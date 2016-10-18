@@ -21,7 +21,8 @@ gulp.task('frontend', [
   'frontend:js',
   'frontend:html',
   'frontend:css',
-  'frontend:sass']);
+  'frontend:sass',
+  'frontend:images']);
 
 // run development task
 gulp.task('dev',
@@ -48,9 +49,9 @@ gulp.task('dev:serve', function () {
 
 // watch for changes and run the relevant task
 gulp.task('dev:watch', function () {
-  gulp.watch('src/**/*.js', ['js']);
-  gulp.watch('src/**/*.html', ['html']);
-  gulp.watch('src/**/*.css', ['css']);
+  gulp.watch('src/**/*.js', ['frontend:js']);
+  gulp.watch('src/**/*.html', ['frontend:html']);
+  gulp.watch('src/**/*.css', ['frontend:css']);
 });
 
 // move dependencies into build dir
@@ -112,6 +113,11 @@ gulp.task('frontend:sass', function () {
       ]
     }))
     .pipe(gulp.dest(config.buildDir));
+});
+
+gulp.task('frontend:images', function () {
+  return gulp.src('src/images')
+    .pipe(gulp.dest('build'))
 });
 
 gulp.task('clean:build',function(){
